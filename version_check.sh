@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
+# Check Local version file and set var: local_version
 local_version=0
-remote_version=""
+remote_version=0
 auth_check="auth256"
+
 count=0
 
 # Download Version check file.
