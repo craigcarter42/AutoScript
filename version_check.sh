@@ -12,46 +12,46 @@ echo " -- Launch Control Version Check: Start"
 
 for final_check in $final_check
 do
-  	if [ $count == "0" ]; then
-	  	if [ "$final_check" == "$auth_check" ]; then
-	  		echo " -- auth_check:      PASS"
-	  	else
-	  		echo " -- auth_check:      FAILED"
-	  		echo " -- auth_check:      EXIT"
-	  		exit
-	  	fi
-		count=$((count+1))
-	fi
+	if [ $count == "0" ]; then
+        if [ "$final_check" == "$auth_check" ]; then
+            echo " -- auth_check:      PASS"
+        else
+            echo " -- auth_check:      FAILED"
+            echo " -- auth_check:      EXIT"
+            exit
+        fi
+        count=$((count+1))
+    fi
 
-	if [ "$final_check" == "2" ]; then
-  		remote_version=$final_check
-  	fi
+    if [ "$final_check" == "2" ]; then
+        remote_version=$final_check
+    fi
 done
 
 echo " -- Local Version:  " $local_version
 echo " -- Remote Version: " $remote_version
 
 if [ $local_version -eq $remote_version ]; then
-	echo " -- New Version:     NO"
-	# RUN NEXT SCRIPT
+    echo " -- New Version:     NO"
+    # RUN NEXT SCRIPT
 fi
 
 if [ $local_version -lt $remote_version ]; then
-	echo " -- New Version:     YES"
-	echo " -- New Version:     Auto Update: RUN"
-	curl -s "https://gist.githubusercontent.com/craigcarter42/b7bd01d87d1bdbec3e7dbb15b406fab0/raw/d19cfbbe981b2c57408d744129341050fd68276b/fake_program.command" > fake_program.command
-	chmod +x fake_program.command
-	echo " -- launchctr:       RUN"
-	echo ""
-	sh fake_program.command
-	echo ""
-	echo " -- launchctr:       mv to final"
-	mv fake_program.command launchctr.command
-	# RUN NEXT SCRIPT
+    echo " -- New Version:     YES"
+    echo " -- New Version:     Auto Update: RUN"
+    curl -s "https://gist.githubusercontent.com/craigcarter42/b7bd01d87d1bdbec3e7dbb15b406fab0/raw/d19cfbbe981b2c57408d744129341050fd68276b/fake_program.command" > fake_program.command
+    chmod +x fake_program.command
+    echo " -- launchctr:       RUN"
+    echo ""
+    sh fake_program.command
+    echo ""
+    echo " -- launchctr:       mv to final"
+    mv fake_program.command launchctr.command
+    # RUN NEXT SCRIPT
 fi
 
 if [ $local_version -gt $remote_version ]; then
-	echo " -- New Version:     Nice Delorean, time traveler"
+    echo " -- New Version:     Nice Delorean, time traveler"
 fi
 
 echo " -- Launch Control Version Check: End"
